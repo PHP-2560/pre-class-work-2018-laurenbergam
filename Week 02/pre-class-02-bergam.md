@@ -59,13 +59,13 @@ sd(exp.draws.10)
 hist(exp.draws.1)
 ```
 	
-    <br/>b. Use `plot()` with this vector to display the random values from your standard distribution in order.
+    b. Use `plot()` with this vector to display the random values from your standard distribution in order.
 
 ```r
 plot(exp.draws.1)
 ```
 	
-    <br/>c. Now, use `plot()` with two arguments -- any two of your other stored random value vectors -- to create a scatterplot of the two vectors against each other.
+    c. Now, use `plot()` with two arguments -- any two of your other stored random value vectors -- to create a scatterplot of the two vectors against each other.
 	
 ```r
 plot(exp.draws.0.2,exp.draws.10)
