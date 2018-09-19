@@ -123,7 +123,8 @@ big.exp.draws.1<-rexp(1.1E6)
 mean(big.exp.draws.1)
 sd(big.exp.draws.1)
 
-#b. The exponential distribution's histogram does not match the cumulative distribution function (when lambda=1) (1-e^{-x}). The former exponentially decreases, the latter is logarithmic. 
+#b. The exponential distribution's histogram does not match the cumulative distribution function (when lambda=1) (1-e^{-x}). 
+#   The former exponentially decreases, the latter is logarithmic. 
 hist(big.exp.draws.1)
 
 #c. 
@@ -137,7 +138,7 @@ histogram.rexp<-hist(big.exp.draws.1.mat)
 #e. 
 mean(big.exp.draws.1.mat[,371])
 
-#f. The histogram is normally distributed. This makes sense since there is a high frequency of ones according to the cdf. 
+#f. The histogram is normally distributed with 1 at the center. This makes sense since there is a high frequency of 1's according to the cdf. 
 all.col.means<-colMeans(big.exp.draws.1.mat)
 hist(all.col.means)
 
