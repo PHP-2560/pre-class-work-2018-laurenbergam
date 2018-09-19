@@ -54,27 +54,54 @@ sd(exp.draws.10)
 
 3. The function `plot()` is the generic function in R for the visual display of data. `hist()` is a function that takes in and bins data as a side effect. To use this function, we must first specify what we'd like to plot. 
     <br/>a. Use the `hist()` function to produce a histogram of your standard exponential distribution. 
+	<br/>b. Use `plot()` with this vector to display the random values from your standard distribution in order.
+	<br/>c. Now, use `plot()` with two arguments -- any two of your other stored random value vectors -- to create a scatterplot of the two vectors against each other.
 	
 ```r
+#a.
 hist(exp.draws.1)
-```
-	
-    b. Use `plot()` with this vector to display the random values from your standard distribution in order.
 
-```r
+#b
 plot(exp.draws.1)
-```
-	
-    c. Now, use `plot()` with two arguments -- any two of your other stored random value vectors -- to create a scatterplot of the two vectors against each other.
-	
-```r
+
+#c
 plot(exp.draws.0.2,exp.draws.10)
 ```
 
 4. We'd now like to compare the properties of each of our vectors. Begin by creating a vector of the means of each of our five distributions in the order we created them and saving this to a variable name of your choice. Using this and other similar vectors, create the following scatterplots and explain in words what is going on:
-    a. The five means versus the five rates used to generate the distribution.
-    b. The standard deviations versus the rates.
-    c. The means versus the standard deviations.
+    <br/>a. The five means versus the five rates used to generate the distribution.
+    <br/>b. The standard deviations versus the rates.
+    <br/>c. The means versus the standard deviations.  
+
+```r
+exp.1.mean<-mean(exp.draws.1)
+exp.0.2.mean<-mean(exp.draws.0.2)
+exp.5.mean<-mean(exp.draws.5)
+exp.7.3.mean<-mean(exp.draws.7.3)
+exp.10.mean<-mean(exp.draws.10)
+vector.mean<-c(exp.1.mean,exp.0.2.mean,exp.5.mean,exp.7.3.mean,exp.10.mean)
+
+exp.1.sd<-sd(exp.draws.1)
+exp.0.2.sd<-sd(exp.draws.0.2)
+exp.5.sd<-sd(exp.draws.5)
+exp.7.3.sd<-sd(exp.draws.7.3)
+exp.10.sd<-sd(exp.draws.10)
+vector.sd<-c(exp.1.sd,exp.0.2.sd,exp.5.sd,exp.7.3.sd,exp.10.sd)
+
+vector.rates<-c(1,0.2,5,7.3,10)
+
+#a. As the average distributions increase, the rates decrease exponentially. 
+plot(vector.mean,vector.rates)
+
+#b. Similarly, as the standard deviations increase, the rates decrease exponentially. 
+plot(vector.sd,vector.rates)
+
+#c. As the average distributions increase, so do the standard deviations. 
+plot(vector.mean,vector.sd)
+
+```	
+	
+	
 
 For each plot, explain in words what's going on.
 
