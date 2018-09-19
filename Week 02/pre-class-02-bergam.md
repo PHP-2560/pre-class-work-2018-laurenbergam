@@ -61,10 +61,10 @@ sd(exp.draws.10)
 #a.
 hist(exp.draws.1)
 
-#b
+#b.
 plot(exp.draws.1)
 
-#c
+#c.
 plot(exp.draws.0.2,exp.draws.10)
 ```
 
@@ -96,24 +96,52 @@ plot(vector.mean,vector.rates)
 #b. Similarly, as the standard deviations increase, the rates decrease exponentially. 
 plot(vector.sd,vector.rates)
 
-#c. As the average distributions increase, so do the standard deviations. 
+#c. As the average distributions increase, so do the standard deviations with a seemingly linear trend. 
 plot(vector.mean,vector.sd)
 
 ```	
 	
 	
 
-For each plot, explain in words what's going on.
 
 ### Part II (PHP 2560 Only)
 
 
 5. R's capacity for data and computation is large to what was available 10 years ago. 
-    a. To show this, generate 1.1 million numbers from the standard exponential distribution and store them in a vector called `big.exp.draws.1`. Calculate the mean and standard deviation.
-    b. Plot a histogram of `big.exp.draws.1`.  Does it match the function \(1-e^{-x}\)?  Should it? 
-    c. Find the mean of all of the entries in `big.exp.draws.1` which are strictly greater than 1. You may need to first create a new vector to identify which elements satisfy this.
-    d. Create a matrix, `big.exp.draws.1.mat`, containing the the values in 
-`big.exp.draws.1`, with 1100 rows and 1000 columns. Use this matrix as the input to the `hist()` function and save the result to a variable of your choice. What happens to your data?
-    e. Calculate the mean of the 371st column of `big.exp.draws.1.mat`.
-    f. Now, find the means of all 1000 columns of `big.exp.draws.1.mat` simultaneously. Plot the histogram of column means.  Explain why its shape does not match the histogram in problem 5b).
+    <br/>a. To show this, generate 1.1 million numbers from the standard exponential distribution and store them in a vector called `big.exp.draws.1`. Calculate the mean and standard deviation.
+    <br/>b. Plot a histogram of `big.exp.draws.1`.  Does it match the function \(1-e^{-x}\)?  Should it? 
+    <br/>c. Find the mean of all of the entries in `big.exp.draws.1` which are strictly greater than 1. You may need to first create a new vector to identify which elements satisfy this.
+    <br/>d. Create a matrix, `big.exp.draws.1.mat`, containing the the values in `big.exp.draws.1`, with 1100 rows and 1000 columns. Use this matrix as the input to the `hist()` function and save the result to a variable of your choice. What happens to your data?
+    <br/>e. Calculate the mean of the 371st column of `big.exp.draws.1.mat`.
+    <br/>f. Now, find the means of all 1000 columns of `big.exp.draws.1.mat` simultaneously. Plot the histogram of column means.  Explain why its shape does not match the histogram in problem 5b).
    
+	
+```r
+
+#a. 
+big.exp.draws.1<-rexp(1.1E6)
+mean(big.exp.draws.1)
+sd(big.exp.draws.1)
+
+#b. The exponential distribution's histogram does not match the cumulative distribution function (when lambda=1) (1-e^{-x}). The former exponentially decreases, the latter is logarithmic. 
+hist(big.exp.draws.1)
+
+#c. 
+greater.than.1<-which(big.exp.draws.1>1)
+mean(greater.than.1)
+
+#d. The data remained unchanged. 
+big.exp.draws.1.mat<-matrix(big.exp.draws.1, nrow = 1100, ncol = 1000)
+histogram.rexp<-hist(big.exp.draws.1.mat)
+
+#e. 
+mean(big.exp.draws.1.mat[,371])
+
+#f. The histogram is normally distributed. This makes sense since there is a high frequency of ones according to the cdf. 
+all.col.means<-colMeans(big.exp.draws.1.mat)
+hist(all.col.means)
+
+```
+	
+   
+
