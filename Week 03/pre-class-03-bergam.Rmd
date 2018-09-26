@@ -192,7 +192,7 @@ gm1992 is a tibble dataframe
 
 10. Which observations indicate that the population of a country has *decreased* from the previous year **and** the life expectancy has *increased* from the previous year? See [the vignette on window functions](https://cran.r-project.org/web/packages/dplyr/vignettes/window-functions.html).
 ```{r}
-#Keep observations based if population has decreased from previous year, lag function compares value from previous year. 
+#Keep observation if population has decreased from previous year, lag function compares value from previous year. 
 #Add new column life_expect that determines if life expectancy has increased from previous year. 
 #Only keep observations where this is true. 
 #Arrange population in ascending order. 
