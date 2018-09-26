@@ -34,23 +34,77 @@ Use **dplyr** functions to address the following questions:
 1. How many unique countries are represented per continent?
 
 ```{r}
-#regroup to prep for summarize, summarize, count by country
+#regroup to prep for summarize. summarize, count by country
 gapminder %>%
   group_by(continent) %>%
   summarize(n_distinct(country))
 
 ```
+The number of unique countries by continent are as follows: Africa: 52, Americas: 25, Asia: 33, Europe: 30, Oceania: 2. 
+
 
 2. Which European nation had the lowest GDP per capita in 1997? 
 
 ```{r}
-
+#filter by continent and year. arrange in ascending order. Choose first observation. 
+gapminder %>%
+  filter(continent == "Europe", year == "1997") %>%
+  arrange(gdpPercap)
+  select
+  
 ```
+Albania 
+
 
 3. According to the data available, what was the average life expectancy across each continent in the 1980s?
+```{r}
+#filter for desired range of years. Group by continent to set up summarize. Summarize using mean on lifeExp column. 
+gapminder %>%
+  filter(year >= 1980 & year <= 1989) %>%
+  group_by(continent) %>%
+  summarize(avg_life_80s = mean(lifeExp))
+
+```
+Africa: 52.5;  Americas: 67.2;   Asia:63.7;   Europe: 73.2;   Oceania:74.8
+
+
 4. What 5 countries have the highest total GDP over all years combined?
+```{r}
+#Group by country to prime data for summarize. Summarize, add all gdp's per country, create new variable for that data frame. Arrange in descending order. Choose top 5 observations. 
+gapminder %>%
+  group_by(country) %>% 
+  summarize(combined_gdp = sum(gdpPercap)) %>%
+  arrange(desc(combined_gdp))
+    
+```
+Kuwait, Switzerland, Norway, United States, Canada
+
 5. What countries and years had life expectancies of _at least_ 80 years? _N.b. only output the columns of interest: country, life expectancy and year (in that order)._
+```{r}
+gapminder %>%
+  filter(lifeExp >= 80) %>%
+  select(country, lifeExp, year)
+    
+```
+ 1 Australia           80.4  2002
+ 2 Australia           81.2  2007
+ 3 Canada              80.7  2007
+ 4 France              80.7  2007
+ 5 Hong Kong, China    80    1997
+ 6 Hong Kong, China    81.5  2002
+ 7 Hong Kong, China    82.2  2007
+ 8 Iceland             80.5  2002
+ 9 Iceland             81.8  2007
+10 Israel              80.7  2007
+ ... with 12 more rows
+
+
 6. What 10 countries have the strongest correlation (in either direction) between life expectancy and per capita GDP?
+```{r}
+
+    
+```
+
 7. Which combinations of continent (besides Asia) and year have the highest average population across all countries? _N.b. your output should include all results sorted by highest average population_. With what you already know, this one may stump you. See [this Q&A](http://stackoverflow.com/q/27207963/654296) for how to `ungroup` before `arrange`ing. This also [behaves differently in more recent versions of dplyr](https://github.com/hadley/dplyr/releases/tag/v0.5.0).
 8. Which three countries have had the most consistent population estimates (i.e. lowest standard deviation) across the years of available data? 
 9. Subset **gm** to only include observations from 1992 and store the results as **gm1992**. What kind of object is this?
