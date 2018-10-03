@@ -12,7 +12,6 @@ Using a loop, print the integers from 1 to 50.
 
 ```{r}
 
-
 #Initial integer in desired set, add one each iteration
 for (i in 1:50) {
   print(i)
@@ -50,7 +49,6 @@ B. Now, add all the EVEN integers between 0 and 1000 (hint: use seq())
 
 y = 0
 i = 0
-
 for (i in seq(0,1000,2)) {
   y <- y + i
 }
@@ -88,4 +86,51 @@ The response to each question should be an integer between 1 and 5. Obviously, w
 
 A. Using a loop, create a new dataframe called survey.clean where all the invalid values (those that are not integers between 1 and 5) are set to NA.
 
+```{r}
+
+#Create copy of survey in survey.clean
+#Iterate through range of rows while...
+#Iterating through range of columns
+#Conditional statement: if specified element is between 1 and 5 inclusive
+#Then keep specified element
+#Otherwise, replace specified element with NA
+
+survey.clean <- survey
+for (i in 1:nrow(survey.clean)) {
+  for (j in 2:ncol(survey.clean)) {
+    if (survey[i,j] > 1 & survey[i,j] < 5) {
+         survey.clean[i,j] = survey.clean[i,j]
+    } else {
+         survey.clean[i,j] = NA
+      }
+  }
+}
+survey.clean
+
+```
+
+
+
 B. Now, again using a loop, add a new column to the dataframe called “invalid.answers” that indicates, for each participant, how many bad answers they gave.
+
+```{r}
+
+#Load dplyr package
+
+#Create column of 0's named invalid.answers in survey.clean
+#Loop through each element, keeping rows grouped
+#Each element in new column equals the sum of the elements in the row that are NA
+#Remember is.na returns a 1 if TRUE
+
+
+library(dplyr)
+
+survey.clean$invalid.answers <- 0
+      for (i in 1:nrow(survey.clean)) {
+        survey.clean$invalid.answers[i] = sum(is.na(survey.clean[i,])) 
+  }
+         
+survey.clean
+
+
+```
