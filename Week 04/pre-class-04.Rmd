@@ -10,13 +10,65 @@ Make sure you commit this often with meaningful messages.
 
 Using a loop, print the integers from 1 to 50. 
 
+```{r}
+
+
+#Initial integer in desired set, add one each iteration
+for (i in 1:50) {
+  print(i)
+  i <- i+1
+}
+
+```
+
 ### Question 2:
 
 A.  Using a loop, add all the integers between 0 and 1000.
 
+
+```{r}
+#Set initial value for summing value (x)
+#Set interval for counting value (i)
+#Add counting value to summing value
+#Use print(x) and print(i) in loop to check work
+
+x = 0
+for (i in 0:1000) {
+  x <- x + i
+}
+print(x)
+
+```
+
 B. Now, add all the EVEN integers between 0 and 1000 (hint: use seq())
 
+```{r}
+#Set initial values
+#Set interval using seq
+#Add counting value to summing value
+#Use print(x) and print(i) in loop to check work
+
+y = 0
+i = 0
+
+for (i in seq(0,1000,2)) {
+  y <- y + i
+}
+print(y)
+
+```
+
 C. Now, repeat A and B WITHOUT using a loop.
+
+```{r}
+#Use range to sum
+A. 
+sum(0:1000)
+
+#Use sequence to sum
+B. 
+sum(seq(0,1000,2))
+```
 
 ### Question 3:
 
