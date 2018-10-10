@@ -155,4 +155,74 @@ for (i in 1:ncol(WCGS.new)) {
 ### Question 2: Looping to Calculate
 
 A. Using a loop, calculate the mean weight of the subjects separated by the type of CHD they have.
+```{r}
+#Select columns of interest for readability
+#Initialize variables
+
+#For weight elements in column wt_typ
+  #if the corresponding typchd69 value is no CHD 
+  #then sum these values together, save as variable
+
+  #if the corresponding typchd69 value is MI or SD 
+  #then sum these values together, save as variable
+
+  #if the corresponding typchd69 value is silent MI 
+  #then sum these values together, save as variable
+
+  #if the corresponding typchd69 value is any other value 
+  #then sum these values together, save as variable
+
+wt_typ <- dplyr::select(wcgs,"weight", "typchd69")
+no_CHD <- 0
+MI_or_SD <- 0
+silent_MI <- 0
+angina <- 0
+
+for (i in wt_typ) {
+  if("typchd69" == "no CHD") {
+    no_CHD <- sum(i)
+  }
+  else if("typchd69" == "MI or SD"){
+    MI_or_SD <- sum(i)
+  } 
+  else if("typchd69" == "silent MI"){
+    silent_MI <- sum(i)
+  }
+  else {
+    angina <- sum(i)
+  }
+
+}
+
+#Test below
+#no_CHD
+#MI_or_SD
+#silent_MI
+#angina
+
+```
 B. Now do the same thing, but now don't use a loop
+```{r}
+
+#Load dplyr library
+#Begin piping with dataset
+  #Group by the type of coronary heart disease to set up summary
+  #Summarize data, extract the mean of the weights for each type of CHD
+
+library(dplyr)
+
+wcgs %>%
+  group_by(typchd69) %>%
+  summarise(mean(weight))
+
+```
+
+```{r}
+
+#Misc notes
+#dplyr::group_by(wcgs,"typechd69")
+#wt_typ <- dplyr::select(wcgs,"weight", "typchd69")
+#sorted <- dplyr::group_by(wt_typ,"typchd69")
+#wcgs[,"weight"]
+
+```
