@@ -12,24 +12,74 @@ knitr::opts_chunk$set(echo = TRUE)
 
 1. Read the source code for each of the following three functions, puzzle out what they do, and then brainstorm better names.
 
-```
-f1 <- function(string, prefix) {
+```{r}
+
+string_a <- c(1,2,3,4,5)
+prefix_a <- 3
+
+string_b <- c("This", "is", "an", "amazing", "string")
+prefix_b <- "is"
+
+#Iterates through each value in string, if equal to prefix, print TRUE, if not, print FALSE
+string_contains_prefix <- function(string, prefix) {
   substr(string, 1, nchar(prefix)) == prefix
 }
-f2 <- function(x) {
+
+#Test:
+string_contains_prefix(string_b, prefix_b)
+
+```
+
+```{r}
+
+a <- c(1,2,3,5,43,56,7,7,4)
+  
+  
+#Removes last element in sequence if sequence contains more than one element
+remove_last_element <- function(x) {
   if (length(x) <= 1) return(NULL)
   x[-length(x)]
 }
-f3 <- function(x, y) {
+
+#Test:
+remove_last_element(a)
+
+```
+
+```{r}
+
+b <- c(1,2,3,4,5,6,7,8,9)
+c <- c(4,5,6,6,7,8)
+
+#Repeats second list until it is the length of the first list
+repeat_equal_lengths <- function(x, y) {
   rep(y, length.out = length(x))
 }
+
+#Test
+repeat_equal_lengths(b,c)
+
 ```
 
 2. Compare and contrast rnorm() and MASS::mvrnorm(). How could you make them more consistent?
+```{r}
 
 
+```
 3. Use `lapply()` and an anonymous function to find the coefficient of variation (the standard deviation divided by the mean) for all columns in the mtcars dataset. 
+```{r}
+
+
+```
 
 4. Use vapply() to:
     a. Compute the standard deviation of every column in a numeric data frame.
+```{r}
+
+
+```
     b. Compute the standard deviation of every numeric column in a mixed data frame. (Hint: you'll need to use vapply() twice.)
+```{r}
+
+
+```
