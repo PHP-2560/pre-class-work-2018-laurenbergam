@@ -62,12 +62,35 @@ repeat_equal_lengths(b,c)
 ```
 
 2. Compare and contrast rnorm() and MASS::mvrnorm(). How could you make them more consistent?
-```{r}
 
+Both rnorm and mvrnorm draw random numbers from the normal distribution. However, rnorm draws numbers from a univariate normal distribution, that is, drawn numbers would produce a normally distributed histogram. While mvrnorm draws numbers from more than one variate, ie drawn numbers from a bivariate normal distribution would produce a normally distributed 3D graph. 
+
+These functions have inconsistent labeling since rnorm defines the mean as "mean" and the standard deviation as "sd", while mvrnorm defines the means as "mu" and the covariance as "Sigma" since covariance is considered the standard deviation (or variance) of multiple dimensions. To make these functions more consistent, their arguments could be defined by the same labels. 
+
+```{r}
+#install.packages("MASS")
+#library(MASS)
+
+
+Sigma <- matrix(c(10,3,3,2),2,2)
+Sigma
+var(mvrnorm(n = 100, rep(0, 2), Sigma))
+var(mvrnorm(n = 100, rep(0, 2), Sigma, empirical = TRUE))
+
+
+rnorm(n = 100, rep(0, 2), Sigma)
+
+rnorm(sigma)
 
 ```
 3. Use `lapply()` and an anonymous function to find the coefficient of variation (the standard deviation divided by the mean) for all columns in the mtcars dataset. 
 ```{r}
+
+#Define function with one argument which will be the dataframe to input
+#Use function using lapply to iterate 
+#Turn the listed output into a dataframe by using brackets with mtcars
+variation_coeff <- function(x) sd(x)/mean(x)
+mtcars[] <- lapply(mtcars, variation_coeff)
 
 
 ```
