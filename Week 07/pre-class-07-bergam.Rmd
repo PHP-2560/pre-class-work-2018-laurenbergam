@@ -113,10 +113,11 @@ prob_bust_500
 ```
     c. the mean time you bust, given that you bust within the first 5000 hands.
 ```{r}
-#Unfinished
-#Unable to count number of hands correctly
+#Initialize number of hands played count
+#Increase number of hands played every for loop
+#Return h for function output if bust
+#Return NA if no bust
 
-h <- 0
   
 fair_game <- function(n){
   bankroll <- 1000
