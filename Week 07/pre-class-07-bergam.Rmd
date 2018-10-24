@@ -31,8 +31,12 @@ With this project we will simulate a famous probability problem. This will not r
 
  1. **Gambler's Ruin**: Suppose you have a bankroll of $1000 and make bets of $100 on a fair game. By simulating the outcome directly for at most 5000 iterations of the game (or hands), estimate:
 ```{r}
-
-#n is number of hands played in a game
+#Define function with one argument, n = number of hands played per game
+#Initialize bankroll
+#For each bet played, use binomial distribution with probability 0.5 of success
+#If successful, add 100 to bankroll, if not, subtract 100
+#If bankroll total <= 0 then return 0 and break for loop
+#Otherwise, return bankroll value
 
 
 fair_game <- function(n){
@@ -44,12 +48,13 @@ fair_game <- function(n){
   } else {
       bankroll <- bankroll - 100
   }
-  }
-
   if (bankroll <= 0){
     return(0)
     break
   }
+  }
+
+
   return(bankroll)
 
 }
@@ -59,6 +64,14 @@ fair_game <- function(n){
  
     a. the probability that you have "busted" (lost all your money) by the time you have placed your one hundredth bet. 
 ```{r} 
+#Initialize list
+#For each game played out of 5000 games
+#Store bankroll outcome after 100 hands
+#Store each outcome together in vector
+
+#Count number of times bankroll is 0, ie busted
+#That number over number of total games played
+
 
 winnings_list <- numeric()
 for (i in 1:5000){
@@ -68,11 +81,9 @@ for (i in 1:5000){
 
 
 winnings_list 
-count_no_bust <- sum(winnings_list > 1)
-count_no_bust
+count_bust <- sum(winnings_list == 0)
+count_bust
 
-
-count_bust <- 5000 - count_no_bust
 prob_bust_100 <- count_bust/5000
 prob_bust_100
 
@@ -82,7 +93,7 @@ prob_bust_100
 ```
     b. the probability that you have busted by the time you have placed your five hundredth bet by simulating the outcome directly. 
 ```{r}
-
+#Same as a with 500 bets per game
 
 winnings_list <- numeric()
 for (i in 1:5000){
@@ -102,6 +113,8 @@ prob_bust_500
 ```
     c. the mean time you bust, given that you bust within the first 5000 hands.
 ```{r}
+#Unfinished
+#Unable to count number of hands correctly
 
 h <- 0
   
@@ -140,6 +153,7 @@ list_
 ```
     d. the mean and variance of your bankroll after 100 hands (including busts).
 ```{r}
+#Calculate mean and var for part a
 
 winnings_list <- numeric()
 for (i in 1:5000){
@@ -152,12 +166,10 @@ mean(winnings_list)
 var(winnings_list)
 
 
-
-
-
 ```
     e. the mean and variance of your bankroll after 500 hands (including busts).
 ```{r}
+#Calculate mean and var for part b
 
 winnings_list <- numeric()
 for (i in 1:5000){
@@ -168,7 +180,6 @@ for (i in 1:5000){
 winnings_list
 mean(winnings_list)
 var(winnings_list)
-
 
 
 ```
