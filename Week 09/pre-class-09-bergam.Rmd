@@ -79,7 +79,6 @@ Hint: the base URL is "https://money.cnn.com"
 link <- html_attr(html_nodes(webpage, "td .wsod_symbol"), "href")
 paste0("https://money.cnn.com", link)
 
-
 ```
 7. Extract the titles under the "Latest News" section (bottom middle of the web page.)
 ```{r}
