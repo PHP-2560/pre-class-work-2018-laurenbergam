@@ -21,28 +21,27 @@ options(scipen = 3, digits = 3)
 ## Exercises
 
 1. Read the HTML content of the following URL with a variable called webpage: https://money.cnn.com/data/us_markets/ At this point, it will also be useful to open this web page in your browser.
-```{r eval = T}
+```{r eval = F}
 install.packages("bitops")
 
 library(XML)
 library(RCurl)
 library(rvest)
+library(httr)
 
 ```
 ```{r}
+#Returns html string
 
 url <- "https://money.cnn.com/data/us_markets/"
 
-webpage <- getURL(url)
-data <- readHTMLTable(webpage, stringAsFactors = FALSE,
-                      which = 2)
-
-data
+webpage <- read_html(url)
+webpage
 
 ```
 2. Get the session details (status, type, size) of the above mentioned URL.
 ```{r}
-
+#Returns type of input, size, etc
 session <- html_session(url)
 
 session
@@ -50,9 +49,9 @@ session
 ```
 3. Extract all of the sector names from the "Stock Sectors" table (bottom left of the web page.)
 ```{r}
-
-stock_sectors <- readHTMLTable(webpage, stringAsFactors = FALSE,
-                      which = 2)
+#Read table number 2 in page
+#Index first column
+stock_sectors <- readHTMLTable(webpage, stringAsFactors = FALSE, which = 2)
 
 sector_names <- stock_sectors[,1]
 sector_names
@@ -60,39 +59,54 @@ sector_names
 ```
 4. Extract all of the "3 Month % Change" values from the "Stock Sectors" table.
 ```{r}
-
+#Index second column
 month_change <- stock_sectors[,2]
 month_change
 
 ```
 5. Extract the table "What's Moving" (top middle of the web page) into a data-frame.
 ```{r}
-
-whats_moving <- readHTMLTable(webpage, stringAsFactors = FALSE,
-                      which = 1)
-
+#Read table number 1 in page
+whats_moving <- readHTMLTable(webpage, stringAsFactors = FALSE, which = 1)
 whats_moving
 
 ```
 6. Re-construct all of the links from the first column of the "What's Moving" table.
 Hint: the base URL is "https://money.cnn.com"
 ```{r}
-
-
+#Select hyperlink reference with class "wsod_symbol" found in the source code of page
+#Paste base url to the unique urls
+link <- html_attr(html_nodes(webpage, "td .wsod_symbol"), "href")
+paste0("https://money.cnn.com", link)
 
 
 ```
 7. Extract the titles under the "Latest News" section (bottom middle of the web page.)
 ```{r}
-
-latest_news <- readHTMLTable(webpage, stringAsFactors = FALSE,
-                      which = 3)
+#Select target attribute <a> under HeadlineList found in source code of page
+latest_news <- html_text(html_nodes(webpage, ".HeadlineList a"))
 
 latest_news
 
 ```
 8. To understand the structure of the data in a web page, it is often useful to know what the underlying attributes are of the text you see.
 Extract the attributes (and their values) of the HTML element that holds the timestamp underneath the "What's Moving" table.
+```{r}
+#Find attributes pf object within class = wsod_disclaimer within span tag
+#Must use plural attributes and nodes, under class attribute
+html_attrs(html_nodes(webpage, ".wsod_disclaimer span"))
+
+```
 9. Extract the values of the blue percentage-bars from the "Trending Tickers" table (bottom right of the web page.)
 Hint: in this case, the values are stored under the "class" attribute.
+```{r}
+#Find attributes of object within class = scale within div class tag
+html_attr(html_nodes(webpage, ".scale div"), name = "class")
+
+```
 10. Get the links of all of the "svg" images on the web page.
+```{r}
+#Find attributes of objects within img tag within src= with svg in name
+html_attr(html_nodes(webpage, "img[src$='svg']"), name = "src")
+
+```
